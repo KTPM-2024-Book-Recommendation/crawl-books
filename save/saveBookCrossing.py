@@ -36,7 +36,7 @@ def insert_book(row, conn, cur):
         number_of_pages = row.get('number_of_pages', None)
         number_of_pages = get_number(number_of_pages)
         
-        average_rating = row.get('average_rating', None)
+        average_rating = row.get('rating', None)
         average_rating = get_number(average_rating)
 
         number_of_ratings = row.get('number_of_ratings', None)
@@ -56,13 +56,10 @@ def insert_book(row, conn, cur):
                 number_of_pages,
                 average_rating,
                 number_of_ratings,
-                # row['text_reviews_count'],
                 str(source_id),
                 row['preprocessed_description'],
                 row.get('categories')
             )
-
-            print(book )
 
             cur.execute(query, book)
 
@@ -82,7 +79,7 @@ def execute(df):
             authors_list = authors_str.split(',')
             all_authors.update([author.strip() for author in authors_list if author.strip() != ''])
 
-    # # Save authors list
+    # Save authors list
     conn, cur = saveService.connect_db(timeout=30000)
     try:
         saveService.insert_authors(all_authors, conn, cur)

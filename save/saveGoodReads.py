@@ -61,7 +61,7 @@ def insert_book(row, conn, cur):
                 str(source_id),
                 row['preprocessed_description']
             )
-            print(book )
+            # print(book )
             cur.execute(query, book)
             print(f"Book '{row['title']}' inserted successfully!")
             return row

@@ -4,7 +4,7 @@ from crawlWeb import crawlThriftBooks
 from crawlWeb.crawlGoodReads import crawlGoodReads
 import preprocessData
 import pandas as pd
-from save import saveThriftBooks, saveGoodReads
+from save import saveThriftBooks, saveGoodReads, saveBookCrossing
 from datetime import date
 
 def getThriftBooks():
@@ -15,7 +15,7 @@ def getThriftBooks():
     return inserted_books
 
 # def getBookCrossingBooks():
-#     rawFilePath = r'dataset/book-crossing/raw/1st_book_crossing_data.csv'
+#     rawFilePath = r'dataset/book-crossing/raw/1st_book_crossing_data_adjusted.csv'
 #     df = preprocessData.executeByAttribute(rawFilePath=rawFilePath, attribute='description', sourceId = 4)
 #     print(df)
 
@@ -25,6 +25,7 @@ def getThriftBooks():
 def getGoodReads() :
     rawFilePath = crawlGoodReads.execute()
     df = preprocessData.executeByAttribute(rawFilePath=rawFilePath, attribute='description', sourceId = 3)
+    # df = pd.read_csv(r'D:\Study\ktpm\ktpm-book-recommenndation\crawl-books\dataset\goodreads\preprocessed\goodreads-2024-11-29.csv')
     print(df)
     saveGoodReads.execute(df)
 
